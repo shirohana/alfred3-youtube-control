@@ -1,17 +1,13 @@
 on init()
   script Cache
-    property class : "cache"
+    property class : "Cache"
 
-    on download(to_download)
-      set link to quoted form of to_download
+    on download(link)
+      set link to quoted form of link
       set filename to POSIX path of (path to temporary items) & (do shell script "md5 <<< " & link)
-
-      if not file_exists(filename) then
-        try
-          do shell script "curl -o " & quoted form of filename & " " & link
-        end try
-      end if
-
+      if not file_exists(filename) then try
+        do shell script "curl -o " & quoted form of filename & " " & link
+      end try
       return filename
     end download
   end script

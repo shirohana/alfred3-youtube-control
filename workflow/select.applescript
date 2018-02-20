@@ -3,8 +3,7 @@
 #   - long: id of `CrTb` to select and return message if have
 on run argv
   # Prepare loader
-  set _loader to load script POSIX path of ((path to me as text) & "::") & "loader.scpt"
-  set Loader to init(path to me as text) of _loader
+  set Loader to init(path to me as text) of (load script POSIX path of ((path to me as text) & "::") & "loader.scpt")
 
   set selector to init(Loader) of load("youtube-selector.scpt") of Loader
 

@@ -10,29 +10,28 @@ on init(Loader)
 
       if get_player() is null then
         set my players to get_players()
-        if count of my players is 1 then set_player(item 1 of my players)
-      end
+        if count of players is 1 then set_player(item 1 of players)
+      end if
 
       return me
     end run
 
     on get_player()
-      if my player is missing value then
-        try
-          set tab_id to get_value("tab_id") of my store
-          set my player to get_tab_from_id(tab_id)
-        end
-      end
+      if player is missing value then try
+        set tab_id to get_value("tab_id") of store
+        set my player to get_tab_from_id(tab_id)
+      end try
 
-      if my player is not missing value then tell application "Google Chrome" to tell my player
+      if player is not missing value then tell application "Google Chrome" to tell player
         if its title contains "- YouTube" then return it
-      end
+      end tell
+
       return null
     end get_player
 
-    on set_player(the_tab)
-      tell my store to set_value("tab_id", id of the_tab)
-      set my player to the_tab
+    on set_player(player)
+      tell store to set_value("tab_id", id of player)
+      set my player to player
     end set_player
 
     on get_tab_from_id(tab_id)
@@ -47,20 +46,20 @@ on init(Loader)
     end get_tab_from_id
 
     on get_players()
-      if my players is not missing value then
-        return my players
+      if players is not missing value then
+        return players
       else
-        set _list to {}
+        set player_list to {}
+
         tell application "Google Chrome"
           repeat with _window in every window
             repeat with _tab in every tab in _window
-              if the title of _tab contains "- YouTube" then
-                set end of _list to _tab
-              end if
+              if the title of _tab contains "- YouTube" then set end of player_list to _tab
             end repeat
           end repeat
         end tell
-        return _list
+
+        return player_list
       end if
     end get_players
   end script

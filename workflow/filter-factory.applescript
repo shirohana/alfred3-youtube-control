@@ -36,20 +36,11 @@ on create()
       return json
     end to_json
 
-    on q(_str)
-      return "\"" & _str & "\""
-    end q
-
-    on url_encode(str)
-      set escape_from to "&'\"<>" & tab
-      set escape_to to {"&amp;", "&apos;", "&quot;", "&lt;", "&gt;", "&#009;"}
-      set r to ""
-      repeat with C in str
-        if escape_from contains C then set C to item (offset of C in escape_from) of escape_to
-        set r to r & C
-      end repeat
-    end url_encode
   end script
 
   return FilterFactory
 end create
+
+on q(str)
+  return "\"" & str & "\""
+end q

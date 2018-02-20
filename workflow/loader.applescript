@@ -3,16 +3,15 @@ on init(p)
     property class : "Loader"
     property prefix : missing value
 
-    on run {p}
-      set my prefix to p & "::"
+    on run {}
+      set prefix to p & "::"
       return me
     end run
 
     on load(filename)
-      set scpt to load script POSIX path of my prefix & filename
-      return scpt
+      return (load script POSIX path of prefix & filename)
     end load
   end script
 
-  return run script Loader with parameters {p}
+  return run script Loader
 end init

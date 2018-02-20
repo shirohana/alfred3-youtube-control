@@ -10,8 +10,7 @@
 #   - "create": Open new YouTube page
 on run argv
   # Prepare loader
-  set _loader to load script POSIX path of ((path to me as text) & "::") & "loader.scpt"
-  set Loader to init(path to me as text) of _loader
+  set Loader to init(path to me as text) of (load script POSIX path of ((path to me as text) & "::") & "loader.scpt")
 
   set selector to init(Loader) of load("youtube-selector.scpt") of Loader
   set player to selector's get_player()
@@ -50,7 +49,8 @@ on run argv
     else if action is "pause" then
       tell youtube to pause()
     else if action starts with "goto:" then
-      tell youtube to execute("window.location.href = " & quoted form of (text 6 thru -1 of action))
+      tell youtube to execute from¬
+          "window.location.href = " & quoted form of (text 6 thru -1 of action)
     else if action is "select" then
       tell application "Alfred 3" to run trigger "select-player" in workflow "me.shirohana.alfred-youtube-control"
     end if
