@@ -4,6 +4,9 @@ Changelog
 [Unreleased]
 ------------
 
+### Changed
+- Use smaller icons (512x->128x)
+
 [0.1.0] - 2018-02-21
 --------------------
 
