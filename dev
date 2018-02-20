@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+BASEDIR=$(dirname "$0")
+WORKFLOW_DIR=$(realpath "$BASEDIR"/workflow)
+
+pushd $WORKFLOW_DIR "$@" > /dev/null
+for src in $(ls *.applescript); do
+  osacompile -o "${src%.applescript}.scpt" "$src"
+done
+popd "$@" > /dev/null

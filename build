@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+BASEDIR=$(dirname "$0")
+WORKFLOW_DIR=$(realpath "$BASEDIR"/workflow)
+DIST_DIR=$(realpath "$BASEDIR"/dist)
+
+rm -rf "$DIST_DIR"; mkdir -p "$DIST_DIR"
+
+pushd $WORKFLOW_DIR "$@" > /dev/null
+for src in $(ls *.applescript); do
+  osacompile -o "../dist/${src%.applescript}.scpt" "$src"
+done
+cp -R info.plist icon.png img ../dist
+popd "$@" > /dev/null
+
+pushd $DIST_DIR "$@" > /dev/null
+zip -rqXm youtube-control.alfredworkflow info.plist *.scpt icon.png img
+popd "$@" > /dev/null
