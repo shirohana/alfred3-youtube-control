@@ -9,13 +9,12 @@ on run argv
   set selector to init(Loader) of load("youtube-selector.scpt") of Loader
 
   if length of argv is 0 then
-
-    set _list to create() of load("filter-factory.scpt") of Loader
+    set player_list to create() of load("filter-factory.scpt") of Loader
     set Cache to init() of load("cache.scpt") of Loader
     set Utils to load("utils.scpt") of Loader
 
     # Add help message
-    tell _list to add given T:"Select a player", S:"", A:"", I:"icon.png", M:"", C:"", TY:"", V:0
+    tell player_list to add given T:"Select a player", S:"", A:"", I:"icon.png", M:"", C:"", TY:"", V:0
 
     repeat with player in selector's get_players()
       tell application "Google Chrome" to tell player
@@ -26,10 +25,10 @@ on run argv
       set icon_path to Cache's download(thumbnail_url_of_youtube(the_url) of Utils)
 
       # Add YouTube tab with title and thumbnail
-      tell _list to add given T:song_title, S:"", A:tab_id, I:icon_path, M:0, C:"", TY:"", V:1
+      tell player_list to add given T:song_title, S:"", A:tab_id, I:icon_path, M:0, C:"", TY:"", V:1
     end repeat
 
-    return to_json() of _list
+    return to_json() of player_list
   else
     set tab_id to item 1 of argv as number
     set player to selector's get_player()

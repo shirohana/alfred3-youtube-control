@@ -6,23 +6,31 @@
 #   - "prev": Play previous video (if has)
 #   - "close": Close current player
 #   - "goto:%s": Redirect current YouTube page to '%s'
-#   - "select": Open player selector (helper)
+#   - "select": Show player selector (helper)
+#   - "create": Open new YouTube page
 on run argv
   # Prepare loader
   set _loader to load script POSIX path of ((path to me as text) & "::") & "loader.scpt"
   set Loader to init(path to me as text) of _loader
 
   set selector to init(Loader) of load("youtube-selector.scpt") of Loader
-
   set player to selector's get_player()
+  set action to item 1 of argv
 
   if player is null then
-    tell application "Alfred 3" to run trigger "select-player" in workflow "me.shirohana.alfred-youtube-control"
+    if action is "create" then
+      tell application "Google Chrome"
+        activate
+        open location "https://www.youtube.com"
+        delay 0.5
+        activate
+      end tell
+    else
+      tell application "Alfred 3" to run trigger "select-player" in workflow "me.shirohana.alfred-youtube-control"
+    end if
   else
     set youtube to init(player) of load("youtube-controller.scpt") of Loader
     set info to init(player) of load("youtube-info.scpt") of Loader
-
-    set action to item 1 of argv
 
     # Switch actions
     if action is "focus" then

@@ -4,14 +4,28 @@ on run {}
   set Loader to init(path to me as text) of _loader
 
   set menu_list to create() of load("filter-factory.scpt") of Loader
-  set selector to init(Loader) of load("youtube-selector.scpt") of Loader
 
+  # If Google Chrome is not running, quit workflow
+  tell application "System Events" to set chrome_running to (name of processes contains "Google Chrome")
+
+  if chrome_running is false then
+    tell menu_list to add given T:"No player running", S:"Launch Google Chrome first", A:"", I:"icon.png", M:0, C:"", TY:"", V:0
+    return to_json() of menu_list
+  end if
+
+  set selector to init(Loader) of load("youtube-selector.scpt") of Loader
   tell selector to set { player, players } to { get_player(), get_players() }
 
   if player is null then
-    tell menu_list to add given¬
-        T:"Choose player", S:"There are " & (count of players) & " YouTube players available",¬
-        A:"select", I:"icon.png", M:0, C:"select", TY:"", V:1
+    if count of players is equal to 0 then
+      tell menu_list to add given¬
+          T:"Create player", S:"Open YouTube player in Google Chrome",¬
+          A:"create", I:"icon.png", M:0, C:"create", TY:"", V:1
+    else
+      tell menu_list to add given¬
+          T:"Choose player", S:"There are " & (count of players) & " YouTube players available",¬
+          A:"select", I:"icon.png", M:0, C:"select", TY:"", V:1
+    end if
   else
     set Utils to load("utils.scpt") of Loader
     set info to init(player) of load("youtube-info.scpt") of Loader
