@@ -66,6 +66,7 @@ Quick start
 
 ### Change current player
 ##### usage: `y c[hange]<Enter>`
+###### Note: Previous player will auto paused
 ![gif-change-player][gif-change-player]
 
 ### Close player
