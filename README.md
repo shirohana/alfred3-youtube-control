@@ -10,7 +10,7 @@ Requirement
 - OS X 10.9+, 64-bit Intel
 
 #### Software
-- [Alfred 3](alfred-official) with Powerpack (current: v3.5.1 [883])
+- [Alfred 3](alfred-official) with Powerpack (current: v3.8 [Build 959])
 
 #### Browser (Choose any)
 - Google Chrome (default)
