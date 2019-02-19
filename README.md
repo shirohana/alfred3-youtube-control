@@ -13,7 +13,9 @@ Requirement
 - [Alfred 3](alfred-official) with Powerpack (current: v3.8 [Build 959])
 
 #### Browser (Choose any)
-- Google Chrome (default)
+- Google Chrome (with AppleScript enabled, see [Enable AppleScript][chrome-enable-scpt])
+
+[chrome-enable-scpt]: https://sites.google.com/a/chromium.org/dev/developers/applescript?p=applescript&rd=1
 
 [alfred-official]: https://www.alfredapp.com/
 
