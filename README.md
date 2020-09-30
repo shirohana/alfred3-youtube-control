@@ -1,3 +1,7 @@
+Deprecated
+==========
+Due to most popular web browsers are now supporting Hardware Media Key Handling, this project is no longer have a reason to be used, and thanks for everyone who once downloaded this workflow(\*´꒳\`\*)
+
 alfred3-youtube-control
 =======================
 
